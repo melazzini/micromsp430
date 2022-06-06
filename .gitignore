@@ -1,0 +1,9 @@
+Debug
+Release
+
+.project
+.settings
+targetConfigs
+lnk_msp430g2553.cmd
+.cproject
+.ccsproject

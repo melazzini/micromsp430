@@ -15,7 +15,7 @@ like mspware and I don't have plans to learn it in the near future.
 ## Objeсtives
 
 The main objective is to write code to control all the peripherals, possibly with some limitations, which can be overcome
-writing specific traditional c-msp430 code.
+by writing specific traditional c-msp430 code.
 
 The second objective and possibly the easiest to achieve is to demonstrate a way to write simple c++ code to control mcu.
 

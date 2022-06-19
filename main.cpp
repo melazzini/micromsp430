@@ -196,7 +196,7 @@ int main(void)
 
     greenLed = &port;
 
-    timer::tick(10'000);
+    timer::tick(5'000);
 
 //    UART_A::read_it(message, 100, [](uint8_t *message_, uint8_t size_)
 //    {

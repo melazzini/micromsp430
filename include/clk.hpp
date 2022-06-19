@@ -3,6 +3,12 @@
 #include "utils.hpp"
 #include<msp430g2553.h>
 
+
+/**
+ * @brief finish base idea for: gpio, clk, timers and adc
+ *
+ */
+
 namespace clk
 {
 

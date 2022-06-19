@@ -2,25 +2,20 @@
 #define GPIO_HPP_
 
 #include "utils.hpp"
+#include<type_traits>
 
 namespace gpio
 {
 
-template<unsigned p>
-struct _Port12Hnd
+enum class Id
 {
-    _io uint8_t m_input; //
-    _io uint8_t m_output; //
-    _io uint8_t m_direction; //
-    _io uint8_t m_it_flag; //
-    _io uint8_t m_it_edge_sel; //
-    _io uint8_t m_it_ena; //
-    _io uint8_t m_port_sel; //
-    _io uint8_t res_ena; //
-    uint8_t _unusedval00[(1 == p) ? 25 : 19]; //
-    _io uint8_t m_port_sel2; //
+    _1, _2, _3
 };
 
+/**
+ * @brief This represents the direction of the gpio port.
+ *
+ */
 enum class Dir : uint16_t
 {
     INPUT, OUTPUT
@@ -36,9 +31,35 @@ enum class ALTF : uint16_t
     _00 = 0, _10 = 2, _11 = 3
 };
 
-template<uint8_t id, uint8_t bit>
+template<Id p>
+struct _Port12Hnd
+{
+    static constexpr uint8_t _UNUNSED_BYTES = (Id::_1 == p) ? 25U : 19U;
+    _io uint8_t m_input; //
+    _io uint8_t m_output; //
+    _io uint8_t m_direction; //
+    _io uint8_t m_it_flag; //
+    _io uint8_t m_it_edge_sel; //
+    _io uint8_t m_it_ena; //
+    _io uint8_t m_port_sel; //
+    _io uint8_t res_ena; //
+    uint8_t _unusedval00[_UNUNSED_BYTES]; //
+    _io uint8_t m_port_sel2; //
+};
+
+/**
+ * @brief This class represents a handler for P1 or P2 gpio port.
+ *
+ * @tparam id Id of the port
+ * @tparam bit The pins of the port
+ */
+template<Id id, uint8_t bit>
 class PORT12
 {
+private:
+    static constexpr uint16_t _P1_ADDRESS = 0x20;
+    static constexpr uint16_t _P2_ADDRESS = 0x28;
+
 public:
     constexpr PORT12(Dir dir, PUPD pupd = PUPD::DIS, ALTF altf = ALTF::_00)
     {
@@ -62,7 +83,7 @@ public:
         m_port->m_output &= ~bit;
     }
 
-    constexpr void toggle() const
+    inline constexpr void toggle() const
     {
         m_port->m_output ^= bit;
     }
@@ -95,8 +116,10 @@ public:
     }
 
 private:
-    _Port12Hnd<id> *m_port = reinterpret_cast<_Port12Hnd<id>*>(
-            (id == 0x01) ? (0x20) : (0x28));
+
+    typename std::enable_if<id == Id::_1 || id == Id::_2, _Port12Hnd<id>*>::type m_port =
+            reinterpret_cast<_Port12Hnd<id>*>(
+                    (id == Id::_1) ? (_P1_ADDRESS) : (_P2_ADDRESS));
 };
 
 }

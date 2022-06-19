@@ -8,10 +8,11 @@
 #ifndef MAIN_HPP_
 #define MAIN_HPP_
 
-#include<msp430g2553.h>
-#include"./include/gpio.hpp"
-#include"./include/clk.hpp"
-#include"./include/timera.hpp"
+
+#include"include/gpio.hpp"
+#include"include/clk.hpp"
+#include"include/timera.hpp"
+#include"include/uarta.hpp"
 
 
 //void myDelay(unsigned ms);

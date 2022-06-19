@@ -12,7 +12,7 @@ My motivation is that I like the msp430 mcu but I really don't want to memorize 
 In addtition, I don't want to  have code duplication each time I write an application. I also don't know very well things 
 like mspware and I don't have plans to learn it in the near future.
 
-## Objevtives
+## Objeсtives
 
 The main objective is to write code to control all the peripherals, possibly with some limitations, which can be overcome
 writing specific traditional c-msp430 code.
